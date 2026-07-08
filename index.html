@@ -48,18 +48,17 @@
 
   /* Header */
   .logo{
-    display:flex; align-items:center; gap:8px;
-    font-size: 22px; font-weight: 700;
-    letter-spacing: -0.02em;
+      display:flex; align-items:center;
     margin-bottom: 40px;
   }
-  .logo .go{ color: var(--green); }
-  .logo-mark{
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #6ef79b, var(--green) 60%, var(--green-dark));
-    display:inline-block;
-    box-shadow: 0 0 14px var(--green-glow);
+    .logo img{
+      display: block;
+      width: 170px;
+      height: auto;
+      max-width: 100%;
+    }
+    @media (max-width: 640px){
+      .logo img{ width: 140px; }
   }
 
   /* Layout */
@@ -347,8 +346,7 @@
 <div class="wrap">
 
   <div class="logo">
-    <span class="logo-mark"></span>
-    <span><span class="go">go</span>loans</span>
+    <img src="logo/goloans-logo.png" alt="GoLoans">
   </div>
 
   <div class="grid">
@@ -414,16 +412,22 @@
         <h2 class="panel-title"><span class="accent">Apply Now.</span> Get Approved.</h2>
         <p class="panel-sub">Limited spots available.</p>
 
-        <div class="field" id="field-name">
-          <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" autocomplete="name">
-          <div class="field-error-msg">Please enter your full name.</div>
-        </div>
-
         <div class="field" id="field-email">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email">
           <div class="field-error-msg">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field" id="field-first-name">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" autocomplete="given-name">
+          <div class="field-error-msg">Please enter your first name.</div>
+        </div>
+
+        <div class="field" id="field-last-name">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" autocomplete="family-name">
+          <div class="field-error-msg">Please enter your last name.</div>
         </div>
 
         <div class="field" id="field-phone">
@@ -442,20 +446,9 @@
           <div class="field-error-msg">Please select an option.</div>
         </div>
 
-        <div class="field" id="field-dob">
-          <label for="dob">Date of Birth</label>
-          <input type="text" id="dob" name="dob" placeholder="MM / DD / YYYY" maxlength="10">
-          <div class="field-error-msg">Please enter a valid date of birth.</div>
-        </div>
-
         <div class="assurance">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
           <p>Since you're a GoLoans client, your <strong>approval is guaranteed.</strong> This is your official application.</p>
-        </div>
-
-        <div class="checkbox-row">
-          <input type="checkbox" id="terms" name="terms">
-          <label for="terms">I agree to the terms and conditions and authorize GoLoans to process my application.</label>
         </div>
 
         <button type="submit" class="submit-btn" id="submitBtn">
@@ -510,7 +503,7 @@
     </div>
   </div>
 
-  <p class="footer-line">Questions? Call us at +1 866 478 4119 or visit <a href="https://goloans.com" target="_blank" rel="noopener">goloans.com</a></p>
+  <p class="footer-line">Questions? Call us at +1 866 478 4119 or visit <a href="https://goloans.ca" target="_blank" rel="noopener">goloans.ca</a></p>
 
 </div>
 
@@ -520,7 +513,6 @@
   const successBox = document.getElementById('successBox');
   const submitBtn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
-  const dobInput = document.getElementById('dob');
 
   // Phone auto-format: (555) 123-4567
   phoneInput.addEventListener('input', function(){
@@ -532,16 +524,6 @@
     phoneInput.value = out;
   });
 
-  // DOB auto-format: MM / DD / YYYY
-  dobInput.addEventListener('input', function(){
-    let digits = dobInput.value.replace(/\D/g,'').slice(0,8);
-    let out = '';
-    if(digits.length > 0) out += digits.substring(0,2);
-    if(digits.length >= 3) out += ' / ' + digits.substring(2,4);
-    if(digits.length >= 5) out += ' / ' + digits.substring(4,8);
-    dobInput.value = out;
-  });
-
   function setError(fieldId, hasError){
     const el = document.getElementById(fieldId);
     el.classList.toggle('error', hasError);
@@ -551,46 +533,30 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   }
 
-  function isValidDob(v){
-    const m = v.match(/^(\d{2}) \/ (\d{2}) \/ (\d{4})$/);
-    if(!m) return false;
-    const month = parseInt(m[1],10), day = parseInt(m[2],10), year = parseInt(m[3],10);
-    if(month < 1 || month > 12) return false;
-    if(day < 1 || day > 31) return false;
-    if(year < 1900 || year > new Date().getFullYear()) return false;
-    return true;
-  }
-
   form.addEventListener('submit', function(e){
     e.preventDefault();
     let valid = true;
 
-    const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
     const phone = phoneInput.value.trim();
     const ownsCard = document.getElementById('ownsCard').value;
-    const dob = dobInput.value.trim();
-    const terms = document.getElementById('terms').checked;
-
-    setError('field-name', fullName.length < 2);
-    if(fullName.length < 2) valid = false;
 
     setError('field-email', !isValidEmail(email));
     if(!isValidEmail(email)) valid = false;
+
+    setError('field-first-name', firstName.length < 2);
+    if(firstName.length < 2) valid = false;
+
+    setError('field-last-name', lastName.length < 2);
+    if(lastName.length < 2) valid = false;
 
     setError('field-phone', phone.replace(/\D/g,'').length !== 10);
     if(phone.replace(/\D/g,'').length !== 10) valid = false;
 
     setError('field-owns', !ownsCard);
     if(!ownsCard) valid = false;
-
-    setError('field-dob', !isValidDob(dob));
-    if(!isValidDob(dob)) valid = false;
-
-    if(!terms){
-      valid = false;
-      alert('Please agree to the terms and conditions to continue.');
-    }
 
     if(!valid) return;
 
