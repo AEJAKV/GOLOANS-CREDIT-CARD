@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoLoans Credit Card | Join the Waitlist</title>
+<style>
+  :root{
+    --bg: #0a0d0c;
+    --bg-panel: #0f1512;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --green: #3ddc6f;
+    --green-dark: #1f8f45;
+    --green-glow: rgba(61,220,111,0.35);
+    --text: #f2f4f2;
+    --text-dim: #a8b0ac;
+    --text-faint: #6c756f;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --font-display: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% 85%, rgba(61,220,111,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 85% 15%, rgba(61,220,111,0.06), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header */
+  .logo{
+    display:flex; align-items:center; gap:8px;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+  }
+  .logo .go{ color: var(--green); }
+  .logo-mark{
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #6ef79b, var(--green) 60%, var(--green-dark));
+    display:inline-block;
+    box-shadow: 0 0 14px var(--green-glow);
+  }
+
+  /* Layout */
+  .grid{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 900px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+
+  /* Left column */
+  .eyebrow{
+    display:inline-flex; align-items:center;
+    border: 1px solid rgba(61,220,111,0.4);
+    color: var(--green);
+    background: rgba(61,220,111,0.06);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+
+  h1{
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    font-weight: 800;
+  }
+  h1 .accent{ color: var(--green); }
+
+  .lede{
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 480px;
+    margin-bottom: 34px;
+  }
+
+  .feature-list{
+    display:flex; flex-direction: column;
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+  .feature{
+    display:flex; align-items:flex-start; gap: 14px;
+  }
+  .feature-icon{
+    flex: 0 0 auto;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: rgba(61,220,111,0.08);
+    border: 1px solid rgba(61,220,111,0.25);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--green);
+  }
+  .feature-icon svg{ width: 20px; height:20px; }
+  .feature-title{ font-weight: 700; font-size: 0.98rem; margin: 0 0 3px; }
+  .feature-desc{ color: var(--text-dim); font-size: 0.9rem; margin:0; }
+
+  /* Card visual */
+  .card-stage{
+    position: relative;
+    height: 260px;
+    margin-bottom: 30px;
+    display:flex; align-items:center;
+  }
+  .glow-sweep{
+    position:absolute;
+    left: -40px; bottom: 10px;
+    width: 340px; height: 100px;
+    background: linear-gradient(90deg, transparent, var(--green) 40%, transparent 80%);
+    filter: blur(28px);
+    opacity: 0.55;
+    transform: rotate(-6deg);
+    pointer-events:none;
+  }
+  .credit-card{
+    position: relative;
+    width: 340px;
+    height: 210px;
+    border-radius: 18px;
+    background:
+      linear-gradient(135deg, #2a2e2c 0%, #16181a 45%, #0c0d0e 100%);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.7),
+      0 0 40px -5px var(--green-glow),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    transform: rotate(-6deg);
+    padding: 26px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .chip{
+    width: 42px; height: 32px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #d8dcd9, #9aa19c);
+    position: relative;
+    overflow:hidden;
+  }
+  .chip::before, .chip::after{
+    content:''; position:absolute; background: rgba(0,0,0,0.25);
+  }
+  .chip::before{ top: 50%; left:0; right:0; height:1px; transform: translateY(-50%); }
+  .chip::after{ left:50%; top:0; bottom:0; width:1px; transform: translateX(-50%); }
+  .card-brand{
+    display:flex; justify-content:flex-end;
+  }
+  .mc-circles{ position:relative; width: 52px; height: 34px; }
+  .mc-circles span{
+    position:absolute; top:0; width:34px; height:34px; border-radius:50%;
+  }
+  .mc-circles span:first-child{ left:0; background:#eb001b; }
+  .mc-circles span:last-child{ left:18px; background:#f79e1b; mix-blend-mode: multiply; }
+
+  .bonus-note{
+    display:flex; gap: 14px; align-items:flex-start;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+  }
+  .bonus-note .feature-icon{ width:36px; height:36px; }
+  .bonus-note p{ margin:0; color: var(--text-dim); font-size: 0.9rem; line-height:1.5; }
+  .bonus-note strong{ color: var(--text); }
+
+  /* Right column - form panel */
+  .panel{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 34px;
+  }
+  .panel-title{ font-size: 1.35rem; font-weight: 800; margin: 0 0 4px; }
+  .panel-title .accent{ color: var(--green); }
+  .panel-sub{ color: var(--text-dim); font-size: 0.92rem; margin: 0 0 26px; }
+
+  .field{ margin-bottom: 18px; }
+  .field label{
+    display:block; font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 8px; color: var(--text);
+  }
+  .field input, .field select{
+    width: 100%;
+    background: #0a0d0b;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field select{
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' stroke='%23a8b0ac' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .field select:invalid{ color: var(--text-faint); }
+  .field option{ background: #12160f; color: var(--text); }
+  .field input::placeholder{ color: var(--text-faint); }
+  .field input:focus, .field select:focus{
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(61,220,111,0.15);
+  }
+  .field.error input, .field.error select{
+    border-color: #e05a5a;
+  }
+  .field-error-msg{
+    display:none;
+    color: #ff8080;
+    font-size: 0.78rem;
+    margin-top: 6px;
+  }
+  .field.error .field-error-msg{ display:block; }
+
+  .assurance{
+    display:flex; gap: 12px; align-items:flex-start;
+    background: rgba(61,220,111,0.05);
+    border: 1px solid rgba(61,220,111,0.2);
+    border-radius: var(--radius-sm);
+    padding: 15px 16px;
+    margin: 20px 0 20px;
+  }
+  .assurance svg{ flex: 0 0 auto; width:20px; height:20px; color: var(--green); margin-top:2px; }
+  .assurance p{ margin:0; font-size: 0.85rem; color: var(--text-dim); line-height:1.5; }
+  .assurance strong{ color: var(--text); }
+
+  .checkbox-row{
+    display:flex; gap: 10px; align-items:flex-start;
+    margin-bottom: 22px;
+  }
+  .checkbox-row input{
+    margin-top: 3px;
+    width: 16px; height:16px;
+    accent-color: var(--green);
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+  .checkbox-row label{
+    font-size: 0.85rem; color: var(--text-dim); line-height:1.5; cursor:pointer;
+  }
+  .checkbox-row a{ color: var(--green); text-decoration: none; }
+
+  .submit-btn{
+    width: 100%;
+    background: linear-gradient(180deg, #4de07f, var(--green) 55%, #24a355);
+    color: #06180d;
+    border: none;
+    border-radius: 999px;
+    padding: 16px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display:flex; align-items:center; justify-content:center; gap: 10px;
+    box-shadow: 0 12px 30px -10px rgba(61,220,111,0.55);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .submit-btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 36px -10px rgba(61,220,111,0.65); }
+  .submit-btn:active{ transform: translateY(0); }
+  .submit-btn svg{ width:18px; height:18px; }
+  .submit-btn:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+
+  .secure-line{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    color: var(--text-faint); font-size: 0.78rem; margin-top: 16px;
+  }
+  .secure-line svg{ width:13px; height:13px; }
+
+  .success-box{
+    display:none;
+    text-align:center;
+    padding: 30px 10px;
+  }
+  .success-box.show{ display:block; }
+  .success-box .check-circle{
+    width: 56px; height:56px; border-radius:50%;
+    background: rgba(61,220,111,0.12);
+    border: 1px solid rgba(61,220,111,0.4);
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 auto 18px;
+  }
+  .success-box .check-circle svg{ width:26px; height:26px; color: var(--green); }
+  .success-box h3{ margin:0 0 8px; font-size:1.2rem; }
+  .success-box p{ color: var(--text-dim); font-size:0.92rem; margin:0; }
+
+  /* Trust bar */
+  .trust-bar{
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 34px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 760px){
+    .trust-bar{ grid-template-columns: 1fr; }
+  }
+  .trust-item{ display:flex; gap:14px; align-items:flex-start; }
+  .trust-item .feature-icon{ width:38px; height:38px; }
+  .trust-item h4{ margin:0 0 3px; font-size:0.95rem; font-weight:700; }
+  .trust-item p{ margin:0; color: var(--text-dim); font-size:0.85rem; }
+
+  .footer-line{
+    text-align:center;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-top: 40px;
+  }
+  .footer-line a{ color: var(--green); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="logo">
+    <span class="logo-mark"></span>
+    <span><span class="go">go</span>loans</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+      <span class="eyebrow">New Credit Card Program</span>
+      <h1>Your GoLoans<br><span class="accent">Credit Card</span><br>is Almost Here.</h1>
+      <p class="lede">Join the waitlist today and be among the first to get your card with guaranteed approval. Built for GoLoans clients, designed for financial flexibility.</p>
+
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Guaranteed Approval</p>
+            <p class="feature-desc">Exclusively for qualifying renewals.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11M7.5 9c-1.5-3 1-5 2.5-3.5C11.5 4 14 6 12.5 9M16.5 9c1.5-3-1-5-2.5-3.5"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Exclusive Perks</p>
+            <p class="feature-desc">Early access to rewards and special offers.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Built for You</p>
+            <p class="feature-desc">More flexibility. More control. More opportunities.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-stage">
+        <div class="glow-sweep"></div>
+        <div class="credit-card">
+          <div class="chip"></div>
+          <div class="card-brand">
+            <div class="mc-circles"><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bonus-note">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11M7.5 9c-1.5-3 1-5 2.5-3.5C11.5 4 14 6 12.5 9M16.5 9c1.5-3-1-5-2.5-3.5"/></svg>
+        </div>
+        <p><strong>Early members may receive a welcome bonus</strong> when the card launches. Details coming soon!</p>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="panel">
+
+      <form id="waitlistForm" novalidate>
+        <h2 class="panel-title"><span class="accent">Apply Now.</span> Get Approved.</h2>
+        <p class="panel-sub">Limited spots available.</p>
+
+        <div class="field" id="field-name">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" autocomplete="name">
+          <div class="field-error-msg">Please enter your full name.</div>
+        </div>
+
+        <div class="field" id="field-email">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email">
+          <div class="field-error-msg">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field" id="field-phone">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+          <div class="field-error-msg">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="field" id="field-owns">
+          <label for="ownsCard">Do you own a credit card?</label>
+          <select id="ownsCard" name="ownsCard" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <div class="field-error-msg">Please select an option.</div>
+        </div>
+
+        <div class="field" id="field-dob">
+          <label for="dob">Date of Birth</label>
+          <input type="text" id="dob" name="dob" placeholder="MM / DD / YYYY" maxlength="10">
+          <div class="field-error-msg">Please enter a valid date of birth.</div>
+        </div>
+
+        <div class="assurance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          <p>Since you're a GoLoans client, your <strong>approval is guaranteed.</strong> This is your official application.</p>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="terms" name="terms">
+          <label for="terms">I agree to the terms and conditions and authorize GoLoans to process my application.</label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          Apply Now &amp; Get Approved
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+
+        <div class="secure-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Your information is secure and encrypted.
+        </div>
+      </form>
+
+      <div class="success-box" id="successBox">
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3>You're on the list!</h3>
+        <p>Thanks for applying. We'll email you as soon as your GoLoans Credit Card is ready.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div>
+        <h4>You're Approved</h4>
+        <p>As a renewal client, your approval is guaranteed.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <div>
+        <h4>Fast &amp; Easy</h4>
+        <p>Quick application. No hassle.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+      </div>
+      <div>
+        <h4>Your Card, Your Way</h4>
+        <p>Use it anywhere Mastercard&reg; is accepted.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-line">Questions? Call us at +1 866 478 4119 or visit <a href="https://goloans.com" target="_blank" rel="noopener">goloans.com</a></p>
+
+</div>
+
+<script>
+(function(){
+  const form = document.getElementById('waitlistForm');
+  const successBox = document.getElementById('successBox');
+  const submitBtn = document.getElementById('submitBtn');
+  const phoneInput = document.getElementById('phone');
+  const dobInput = document.getElementById('dob');
+
+  // Phone auto-format: (555) 123-4567
+  phoneInput.addEventListener('input', function(){
+    let digits = phoneInput.value.replace(/\D/g,'').slice(0,10);
+    let out = '';
+    if(digits.length > 0) out += '(' + digits.substring(0,3);
+    if(digits.length >= 4) out += ') ' + digits.substring(3,6);
+    if(digits.length >= 7) out += '-' + digits.substring(6,10);
+    phoneInput.value = out;
+  });
+
+  // DOB auto-format: MM / DD / YYYY
+  dobInput.addEventListener('input', function(){
+    let digits = dobInput.value.replace(/\D/g,'').slice(0,8);
+    let out = '';
+    if(digits.length > 0) out += digits.substring(0,2);
+    if(digits.length >= 3) out += ' / ' + digits.substring(2,4);
+    if(digits.length >= 5) out += ' / ' + digits.substring(4,8);
+    dobInput.value = out;
+  });
+
+  function setError(fieldId, hasError){
+    const el = document.getElementById(fieldId);
+    el.classList.toggle('error', hasError);
+  }
+
+  function isValidEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  function isValidDob(v){
+    const m = v.match(/^(\d{2}) \/ (\d{2}) \/ (\d{4})$/);
+    if(!m) return false;
+    const month = parseInt(m[1],10), day = parseInt(m[2],10), year = parseInt(m[3],10);
+    if(month < 1 || month > 12) return false;
+    if(day < 1 || day > 31) return false;
+    if(year < 1900 || year > new Date().getFullYear()) return false;
+    return true;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    let valid = true;
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = phoneInput.value.trim();
+    const ownsCard = document.getElementById('ownsCard').value;
+    const dob = dobInput.value.trim();
+    const terms = document.getElementById('terms').checked;
+
+    setError('field-name', fullName.length < 2);
+    if(fullName.length < 2) valid = false;
+
+    setError('field-email', !isValidEmail(email));
+    if(!isValidEmail(email)) valid = false;
+
+    setError('field-phone', phone.replace(/\D/g,'').length !== 10);
+    if(phone.replace(/\D/g,'').length !== 10) valid = false;
+
+    setError('field-owns', !ownsCard);
+    if(!ownsCard) valid = false;
+
+    setError('field-dob', !isValidDob(dob));
+    if(!isValidDob(dob)) valid = false;
+
+    if(!terms){
+      valid = false;
+      alert('Please agree to the terms and conditions to continue.');
+    }
+
+    if(!valid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    setTimeout(function(){
+      form.style.display = 'none';
+      successBox.classList.add('show');
+    }, 700);
+  });
+})();
+</script>
+
+</body>
+</html>
