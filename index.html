@@ -462,14 +462,6 @@
         </div>
       </form>
 
-      <div class="success-box" id="successBox">
-        <div class="check-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>
-        </div>
-        <h3>You're on the list!</h3>
-        <p>Thanks for applying. We'll email you as soon as your GoLoans Credit Card is ready.</p>
-      </div>
-
     </div>
   </div>
 
@@ -510,7 +502,6 @@
 <script>
 (function(){
   const form = document.getElementById('waitlistForm');
-  const successBox = document.getElementById('successBox');
   const submitBtn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
 
@@ -563,10 +554,15 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
+    try {
+      sessionStorage.setItem('goloansLead', JSON.stringify({
+        email: email, firstName: firstName, lastName: lastName, phone: phone, ownsCard: ownsCard
+      }));
+    } catch(err){}
+
     setTimeout(function(){
-      form.style.display = 'none';
-      successBox.classList.add('show');
-    }, 700);
+      window.location.href = 'survey.html';
+    }, 400);
   });
 })();
 </script>

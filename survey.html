@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoLoans Credit Card | Quick Survey</title>
+<style>
+  :root{
+    --bg: #0a0d0c;
+    --bg-panel: #0f1512;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --green: #3ddc6f;
+    --green-dark: #1f8f45;
+    --green-glow: rgba(61,220,111,0.35);
+    --text: #f2f4f2;
+    --text-dim: #a8b0ac;
+    --text-faint: #6c756f;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --font-display: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% 85%, rgba(61,220,111,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 85% 15%, rgba(61,220,111,0.06), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  .logo{ display:flex; align-items:center; margin-bottom: 32px; }
+  .logo img{ display:block; width: 170px; height:auto; max-width:100%; }
+  @media (max-width: 640px){ .logo img{ width: 140px; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center;
+    border: 1px solid rgba(61,220,111,0.4);
+    color: var(--green);
+    background: rgba(61,220,111,0.06);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  h1{
+    font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    font-weight: 800;
+  }
+  h1 .accent{ color: var(--green); }
+
+  .lede{
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+
+  /* Progress */
+  .progress{
+    position: sticky; top: 0; z-index: 5;
+    background: rgba(10,13,12,0.92);
+    backdrop-filter: blur(6px);
+    padding: 12px 0;
+    margin-bottom: 18px;
+  }
+  .progress-meta{
+    display:flex; justify-content:space-between;
+    font-size: 0.78rem; color: var(--text-dim); margin-bottom: 8px;
+  }
+  .progress-track{
+    height: 6px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .progress-bar{
+    height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--green-dark), var(--green));
+    border-radius: 999px;
+    transition: width 0.25s ease;
+  }
+
+  /* Sections */
+  .panel{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 30px 34px;
+    margin-bottom: 18px;
+  }
+  @media (max-width: 640px){ .panel{ padding: 24px 20px; } }
+
+  .section-head{
+    display:flex; align-items:center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-num{
+    flex: 0 0 auto;
+    width: 32px; height: 32px; border-radius: 10px;
+    background: rgba(61,220,111,0.08);
+    border: 1px solid rgba(61,220,111,0.25);
+    color: var(--green);
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .section-title{ margin:0; font-size: 1.15rem; font-weight: 800; }
+
+  .question{ margin-bottom: 26px; }
+  .question:last-child{ margin-bottom: 0; }
+  .q-label{
+    display:block; font-size: 0.95rem; font-weight: 600;
+    margin: 0 0 4px; color: var(--text);
+  }
+  .q-hint{ color: var(--text-faint); font-size: 0.8rem; margin: 0 0 12px; }
+  .q-label + .options{ margin-top: 10px; }
+
+  .options{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px){ .options{ grid-template-columns: 1fr; } }
+  .options.single-col{ grid-template-columns: 1fr; }
+
+  .opt{
+    position: relative;
+    display:flex; align-items:center; gap: 10px;
+    background: #0a0d0b;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 0.9rem; color: var(--text-dim);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .opt:hover{ border-color: rgba(61,220,111,0.4); }
+  .opt input{
+    width: 16px; height: 16px; margin: 0;
+    accent-color: var(--green);
+    flex: 0 0 auto; cursor: pointer;
+  }
+  .opt:has(input:checked){
+    border-color: var(--green);
+    background: rgba(61,220,111,0.07);
+    color: var(--text);
+  }
+  .opt:has(input:focus-visible){ box-shadow: 0 0 0 3px rgba(61,220,111,0.2); }
+  .opt:has(input:disabled){ opacity: 0.4; cursor: not-allowed; }
+  .opt:has(input:disabled) input{ cursor: not-allowed; }
+
+  .other-input, textarea{
+    width: 100%;
+    background: #0a0d0b;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  textarea{ min-height: 96px; resize: vertical; line-height: 1.5; margin-top: 10px; }
+  .other-input{ margin-top: 10px; display:none; }
+  .other-input.show{ display:block; }
+  .other-input::placeholder, textarea::placeholder{ color: var(--text-faint); }
+  .other-input:focus, textarea:focus{
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(61,220,111,0.15);
+  }
+
+  .question.error .opt{ border-color: #e05a5a; }
+  .field-error-msg{
+    display:none; color: #ff8080; font-size: 0.78rem; margin-top: 8px;
+  }
+  .question.error .field-error-msg{ display:block; }
+
+  .submit-btn{
+    width: 100%;
+    background: linear-gradient(180deg, #4de07f, var(--green) 55%, #24a355);
+    color: #06180d;
+    border: none;
+    border-radius: 999px;
+    padding: 16px 20px;
+    font-size: 1rem; font-weight: 700; font-family: inherit;
+    cursor: pointer;
+    display:flex; align-items:center; justify-content:center; gap: 10px;
+    box-shadow: 0 12px 30px -10px rgba(61,220,111,0.55);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .submit-btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 36px -10px rgba(61,220,111,0.65); }
+  .submit-btn:active{ transform: translateY(0); }
+  .submit-btn svg{ width:18px; height:18px; }
+  .submit-btn:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+
+  .form-error{
+    display:none; color:#ff8080; font-size:0.85rem; text-align:center; margin-bottom: 14px;
+  }
+  .form-error.show{ display:block; }
+
+  .secure-line{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    color: var(--text-faint); font-size: 0.78rem; margin-top: 16px;
+  }
+  .secure-line svg{ width:13px; height:13px; }
+
+  .success-box{ display:none; text-align:center; padding: 50px 24px; }
+  .success-box.show{ display:block; }
+  .success-box .check-circle{
+    width: 64px; height:64px; border-radius:50%;
+    background: rgba(61,220,111,0.12);
+    border: 1px solid rgba(61,220,111,0.4);
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 auto 20px;
+  }
+  .success-box .check-circle svg{ width:30px; height:30px; color: var(--green); }
+  .success-box h2{ margin:0 0 10px; font-size:1.5rem; }
+  .success-box p{ color: var(--text-dim); font-size:0.95rem; line-height:1.6; margin:0 auto; max-width: 440px; }
+
+  .footer-line{ text-align:center; color: var(--text-dim); font-size: 0.9rem; margin-top: 36px; }
+  .footer-line a{ color: var(--green); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="logo">
+    <a href="index.html"><img src="logo/goloans-logo.png" alt="GoLoans"></a>
+  </div>
+
+  <div id="intro">
+    <span class="eyebrow">Waitlist Survey</span>
+    <h1>Help us build the <span class="accent">right card</span> for you.</h1>
+    <p class="lede" id="lede">You're on the list! Take 2 minutes to tell us what you'd want from a GoLoans credit card. Your answers shape the final product.</p>
+  </div>
+
+  <div class="progress" id="progress">
+    <div class="progress-meta"><span id="progressText">0 of 0 answered</span><span id="progressPct">0%</span></div>
+    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+  </div>
+
+  <form id="surveyForm" novalidate>
+    <div id="sections"></div>
+
+    <div class="form-error" id="formError">Please answer the highlighted questions to continue.</div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">
+      Submit Survey
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+
+    <div class="secure-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Your information is secure and encrypted.
+    </div>
+  </form>
+
+  <div class="panel success-box" id="successBox">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h2>Thank you!</h2>
+    <p>Your feedback has been received. We'll email you as soon as your GoLoans Credit Card is ready.</p>
+  </div>
+
+  <p class="footer-line">Questions? Call us at +1 866 478 4119 or visit <a href="https://goloans.ca" target="_blank" rel="noopener">goloans.ca</a></p>
+
+</div>
+
+<script>
+(function(){
+  // type: radio | checkbox | text. required applies to choice questions only.
+  // Options ending in "Other" (value 'Other') reveal a text input.
+  var SECTIONS = [
+    { title: 'About You', questions: [
+      { id: 'isCustomer', type: 'radio', label: 'Are you currently a GoLoans customer?',
+        options: ['Yes', 'No', 'Not sure'] }
+    ]},
+    { title: 'Interest Level', questions: [
+      { id: 'interestLevel', type: 'radio', label: 'How interested would you be in a GoLoans credit card or credit-building card?',
+        options: ['Very interested', 'Somewhat interested', 'Not sure yet', 'Not interested'] },
+      { id: 'mainReason', type: 'radio', label: 'What would be your main reason for wanting this card?',
+        options: ['Build or rebuild credit', 'Emergency funds', 'Cashback/rewards', 'Lower-cost alternative to payday loans', 'Online purchases/subscriptions', 'Travel or daily spending', 'Other'] }
+    ]},
+    { title: 'Preferred Card Features', questions: [
+      { id: 'features', type: 'checkbox', max: 3, label: 'Which card features matter most to you?', hint: 'Select up to 3.',
+        options: ['No credit check', 'Credit reporting to bureaus', 'Cashback rewards', 'Lower monthly payments', 'Higher approval chance', 'Ability to increase limit over time', 'No hidden fees', 'Flexible payment dates', 'Instant virtual card access', 'Mobile app/account portal'] }
+    ]},
+    { title: 'Perks & Rewards', questions: [
+      { id: 'perks', type: 'checkbox', label: 'Which perks would interest you most?', hint: 'Select all that apply.',
+        options: ['Cashback on purchases', 'Reward points', 'Free month of membership/subscription', 'Lower loan fees or discounts', 'Referral bonuses', 'Credit score tracking', 'Retail/grocery discounts', 'Gas discounts', 'Phone bill/subscription discounts', 'Exclusive member offers'] },
+      { id: 'welcomeOffer', type: 'radio', label: 'Which welcome offer would make you more likely to sign up?',
+        options: ['1,000 reward points', '$25 cashback bonus', 'Free first month membership', 'Reduced activation fee', 'Higher starting credit limit', 'Other'] }
+    ]},
+    { title: 'Pricing Sensitivity', questions: [
+      { id: 'monthlyFee', type: 'radio', label: 'What monthly membership fee would you consider reasonable for a credit-building card with perks?',
+        options: ['$0', '$9.99', '$19.99', '$29.99', '$34.99', 'Depends on the benefits'] },
+      { id: 'openToActivationFee', type: 'radio', label: 'Would you be open to paying an activation fee if the card helped build credit and included rewards?',
+        options: ['Yes', 'Maybe, depending on the amount', 'No'], single: true },
+      { id: 'activationFee', type: 'radio', label: 'What activation fee would you consider reasonable?',
+        options: ['$0', '$49', '$99', '$149', '$199', 'Other'] }
+    ]},
+    { title: 'Credit Limit Preferences', questions: [
+      { id: 'startingLimit', type: 'radio', label: 'What starting credit limit would be useful to you?',
+        options: ['$250', '$500', '$750', '$1,000', '$1,500+'] },
+      { id: 'limitIncrease', type: 'radio', label: 'Would you be interested in increasing your credit limit over time based on good repayment history?',
+        options: ['Yes', 'No', 'Maybe'] }
+    ]},
+    { title: 'Your Credit Cards', questions: [
+      { id: 'ownsCard', type: 'radio', label: 'Do you own a credit card?',
+        options: ['Yes', 'No'] }
+    ]},
+    { title: 'Customer Feedback', questions: [
+      { id: 'moreValuable', type: 'text', label: 'What would make this card more valuable to you?', placeholder: 'Tell us in your own words (optional)' },
+      { id: 'concerns', type: 'text', label: 'What concerns would you have about this type of card?', placeholder: 'Anything that would hold you back (optional)' },
+      { id: 'brands', type: 'text', label: 'Any stores, services, or brands where you would like to receive perks or discounts?', placeholder: 'e.g. grocery stores, gas stations, streaming (optional)' }
+    ]}
+  ];
+
+  var form = document.getElementById('surveyForm');
+  var sectionsEl = document.getElementById('sections');
+  var submitBtn = document.getElementById('submitBtn');
+  var formError = document.getElementById('formError');
+  var successBox = document.getElementById('successBox');
+
+  var choiceQs = [];
+  SECTIONS.forEach(function(s){ s.questions.forEach(function(q){ if(q.type !== 'text') choiceQs.push(q); }); });
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
+  // ---- Render ----
+  var html = '';
+  SECTIONS.forEach(function(sec, si){
+    html += '<div class="panel"><div class="section-head"><div class="section-num">' + (si+1) + '</div><h2 class="section-title">' + esc(sec.title) + '</h2></div>';
+    sec.questions.forEach(function(q){
+      html += '<div class="question" id="q-' + q.id + '"><span class="q-label">' + esc(q.label) + '</span>';
+      if(q.hint) html += '<p class="q-hint">' + esc(q.hint) + '</p>';
+      if(q.type === 'text'){
+        html += '<textarea name="' + q.id + '" id="' + q.id + '" placeholder="' + esc(q.placeholder || '') + '" aria-label="' + esc(q.label) + '"></textarea>';
+      } else {
+        var cols = (q.options.length <= 3 || q.single) ? ' single-col' : '';
+        html += '<div class="options' + cols + '">';
+        q.options.forEach(function(o, oi){
+          var otherLabel = (o === 'Other') ? 'Other' : o;
+          html += '<label class="opt"><input type="' + q.type + '" name="' + q.id + '" value="' + esc(o) + '"><span>' + esc(otherLabel) + '</span></label>';
+        });
+        html += '</div>';
+        if(q.options.indexOf('Other') !== -1){
+          html += '<input type="text" class="other-input" id="' + q.id + '-other" placeholder="Please specify" aria-label="Other: ' + esc(q.label) + '">';
+        }
+        html += '<div class="field-error-msg">' + (q.type === 'checkbox' ? 'Please select at least one option.' : 'Please select an option.') + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  sectionsEl.innerHTML = html;
+
+  // ---- Prefill from landing page ----
+  var lead = null;
+  try { lead = JSON.parse(sessionStorage.getItem('goloansLead') || 'null'); } catch(e){}
+  if(lead && lead.ownsCard){
+    var val = lead.ownsCard === 'yes' ? 'Yes' : 'No';
+    var el = form.querySelector('input[name="ownsCard"][value="' + val + '"]');
+    if(el) el.checked = true;
+  }
+  if(lead && lead.firstName){
+    document.getElementById('lede').textContent = 'Thanks, ' + lead.firstName + "! You're on the list. Take 2 minutes to tell us what you'd want from a GoLoans credit card. Your answers shape the final product.";
+  }
+
+  // ---- Helpers ----
+  function getInputs(q){ return Array.prototype.slice.call(form.querySelectorAll('input[name="' + q.id + '"]')); }
+  function getValue(q){
+    var checked = getInputs(q).filter(function(i){ return i.checked; }).map(function(i){ return i.value; });
+    return q.type === 'radio' ? (checked[0] || '') : checked;
+  }
+  function isAnswered(q){ var v = getValue(q); return q.type === 'radio' ? !!v : v.length > 0; }
+
+  function updateOther(q){
+    var otherEl = document.getElementById(q.id + '-other');
+    if(!otherEl) return;
+    var show = getInputs(q).some(function(i){ return i.checked && i.value === 'Other'; });
+    otherEl.classList.toggle('show', show);
+    if(!show) otherEl.value = '';
+  }
+
+  function enforceMax(q){
+    if(!q.max) return;
+    var inputs = getInputs(q);
+    var count = inputs.filter(function(i){ return i.checked; }).length;
+    inputs.forEach(function(i){ i.disabled = !i.checked && count >= q.max; });
+  }
+
+  function updateProgress(){
+    var done = choiceQs.filter(isAnswered).length;
+    var pct = Math.round(done / choiceQs.length * 100);
+    document.getElementById('progressText').textContent = done + ' of ' + choiceQs.length + ' answered';
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressBar').style.width = pct + '%';
+  }
+
+  choiceQs.forEach(function(q){
+    getInputs(q).forEach(function(i){
+      i.addEventListener('change', function(){
+        enforceMax(q);
+        updateOther(q);
+        if(isAnswered(q)) document.getElementById('q-' + q.id).classList.remove('error');
+        updateProgress();
+      });
+    });
+    updateOther(q);
+  });
+  updateProgress();
+
+  // ---- Submit ----
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var firstBad = null;
+
+    choiceQs.forEach(function(q){
+      var bad = !isAnswered(q);
+      document.getElementById('q-' + q.id).classList.toggle('error', bad);
+      if(bad && !firstBad) firstBad = document.getElementById('q-' + q.id);
+    });
+
+    formError.classList.toggle('show', !!firstBad);
+    if(firstBad){
+      firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    var answers = {};
+    SECTIONS.forEach(function(s){ s.questions.forEach(function(q){
+      if(q.type === 'text'){
+        answers[q.id] = document.getElementById(q.id).value.trim();
+      } else {
+        var v = getValue(q);
+        var otherEl = document.getElementById(q.id + '-other');
+        var otherText = otherEl ? otherEl.value.trim() : '';
+        if(otherText){
+          v = q.type === 'radio' ? 'Other: ' + otherText : v.map(function(x){ return x === 'Other' ? 'Other: ' + otherText : x; });
+        }
+        answers[q.id] = v;
+      }
+    }); });
+
+    var payload = { lead: lead, answers: answers, submittedAt: new Date().toISOString() };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    // TODO: replace with a POST to the real endpoint when available.
+    console.log('GoLoans survey submission:', payload);
+
+    setTimeout(function(){
+      try { sessionStorage.removeItem('goloansLead'); } catch(e){}
+      form.style.display = 'none';
+      document.getElementById('progress').style.display = 'none';
+      document.getElementById('intro').style.display = 'none';
+      successBox.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 600);
+  });
+})();
+</script>
+
+</body>
+</html>
